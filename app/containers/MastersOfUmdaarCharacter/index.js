@@ -42,7 +42,7 @@ export class MastersOfUmdaarCharacter extends React.Component { // eslint-disabl
           {bioform.type}
         </div>
         <div>
-          {bioform.animals.length ? 'Animals: ' + bioform.animals.join(' | ') : undefined}
+          {bioform.animals && bioform.animals.length ? 'Animals: ' + bioform.animals.join(' | ') : undefined}
         </div>
         <div>
           {'Approaches: ' + bioform.approaches.join(' | ')}

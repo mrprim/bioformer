@@ -6,14 +6,14 @@
 
 import { fromJS } from 'immutable'
 import {
-  GENERATE_CHARACTER
+  SET_CHARACTER
 } from './constants'
 
 const initialState = fromJS({})
 
 function mastersOfUmdaarCharacterReducer (state = initialState, action) {
   switch (action.type) {
-    case GENERATE_CHARACTER:
+    case SET_CHARACTER:
       return {...state, character: action.character}
     default:
       return state

@@ -4,4 +4,4 @@
  *
  */
 
-export const GENERATE_CHARACTER = 'app/MastersOfUmdaarCharacter/GENERATE_CHARACTER'
+export const SET_CHARACTER = 'app/MastersOfUmdaarCharacter/SET_CHARACTER'

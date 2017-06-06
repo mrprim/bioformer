@@ -11,7 +11,7 @@ import { FormattedMessage } from 'react-intl'
 import { createStructuredSelector } from 'reselect'
 import makeSelectMastersOfUmdaarCharacter from './selectors'
 import messages from './messages'
-import {generateCharacter} from './actions'
+import {setCharacter} from './actions'
 import buildCharacter from '../../utils/buildCharacter'
 import {get} from 'lodash'
 
@@ -22,7 +22,7 @@ export class MastersOfUmdaarCharacter extends React.Component { // eslint-disabl
 
   generateCharacter () {
     const character = buildCharacter()
-    const action = generateCharacter(character)
+    const action = setCharacter(character)
     this.props.dispatch(action)
   }
 

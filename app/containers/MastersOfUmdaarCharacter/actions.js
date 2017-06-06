@@ -5,12 +5,12 @@
  */
 
 import {
-  GENERATE_CHARACTER
+  SET_CHARACTER
 } from './constants'
 
-export function generateCharacter (character) {
+export function setCharacter (character) {
   return {
-    type: GENERATE_CHARACTER,
+    type: SET_CHARACTER,
     character
   }
 }

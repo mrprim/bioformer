@@ -5,14 +5,6 @@ import { createSelector } from 'reselect'
  */
 const selectMastersOfUmdaarCharacterDomain = () => (state) => state.get('umdaar')
 
-/**
- * Other specific selectors
- */
-
-/**
- * Default selector used by MastersOfUmdaarCharacter
- */
-
 const makeSelectMastersOfUmdaarCharacter = () => createSelector(
   selectMastersOfUmdaarCharacterDomain(),
   (substate) => substate

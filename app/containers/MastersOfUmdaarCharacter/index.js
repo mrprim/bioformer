@@ -5,15 +5,19 @@
  */
 
 import React, { PropTypes } from 'react'
+import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import { FormattedMessage } from 'react-intl'
+import Button from '../../components/Button'
+import CharacterWrapper from './CharacterWrapper'
 import { createStructuredSelector } from 'reselect'
-import makeSelectMastersOfUmdaarCharacter from './selectors'
-import messages from './messages'
 import {setCharacter} from './actions'
 import buildCharacter from '../../utils/buildCharacter'
-import {get} from 'lodash'
+import {
+  makeSelectBioformType,
+  makeSelectBioformAnimals,
+  makeSelectBioformApproach
+} from './selectors'
 
 export class MastersOfUmdaarCharacter extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount () {
@@ -22,48 +26,63 @@ export class MastersOfUmdaarCharacter extends React.Component { // eslint-disabl
 
   generateCharacter () {
     const character = buildCharacter()
-    const action = setCharacter(character)
-    this.props.dispatch(action)
+    this.props.actions.setCharacter(character)
   }
 
   handleClick () {
     this.generateCharacter()
   }
+
+  renderCharacterMessage () {
+    const {bioformType, bioformAnimals, bioformApproach} = this.props
+    const animalString = bioformAnimals.length ? '(' + bioformAnimals.join(' | ').trim() + ')' : ''
+    return (<div>
+      {' Umga the ' +
+        bioformApproach + ' ' +
+        bioformType + ' ' +
+        animalString
+      }
+    </div>)
+  }
+
   render () {
-    const bioform = get(this, 'props.MastersOfUmdaarCharacter.character.bioform') || {}
-
     return (
-      <div>
-        <button onClick={this.handleClick.bind(this)}>
-          Click to Fire Up the Recombinator
-        </button>
+      <CharacterWrapper>
 
-        <div>
-          {bioform.type}
-        </div>
-        <div>
-          {(bioform.animals && bioform.animals.length) ? 'Animals: ' + bioform.animals.join(' | ') : undefined}
-        </div>
-        <div>
-          {(bioform.approaches && bioform.approaches.length) ? 'Approaches: ' + bioform.approaches.join(' | ') : undefined}
-        </div>
-      </div>
+        <Helmet
+          title='Masters of Umdaar Character Generator'
+        />
+
+        {this.renderCharacterMessage()}
+
+        <Button onClick={this.handleClick.bind(this)}>
+          Click to Fire Up the Recombinator
+        </Button>
+
+      </CharacterWrapper>
     )
   }
 }
 
+MastersOfUmdaarCharacter.defaultProps = {
+  bioformAnimals: []
+}
+
 MastersOfUmdaarCharacter.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  character: PropTypes.object
+  bioformType: PropTypes.string,
+  bioformAnimals: PropTypes.array,
+  bioformApproach: PropTypes.string
 }
 
 const mapStateToProps = createStructuredSelector({
-  MastersOfUmdaarCharacter: makeSelectMastersOfUmdaarCharacter()
+  bioformType: makeSelectBioformType(),
+  bioformAnimals: makeSelectBioformAnimals(),
+  bioformApproach: makeSelectBioformApproach()
 })
 
 function mapDispatchToProps (dispatch) {
   return {
-    dispatch
+    actions: bindActionCreators({setCharacter}, dispatch)
   }
 }
 

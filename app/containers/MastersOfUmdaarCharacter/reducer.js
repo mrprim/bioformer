@@ -14,7 +14,7 @@ const initialState = fromJS({})
 function mastersOfUmdaarCharacterReducer (state = initialState, action) {
   switch (action.type) {
     case SET_CHARACTER:
-      return {...state, character: action.character}
+      return fromJS({...state, character: action.character})
     default:
       return state
   }

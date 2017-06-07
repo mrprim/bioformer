@@ -1,16 +1,35 @@
 import { createSelector } from 'reselect'
+import { get } from 'lodash'
 
 /**
  * Direct selector to the mastersOfUmdaarCharacter state domain
  */
-const selectMastersOfUmdaarCharacterDomain = () => (state) => state.get('umdaar')
+const selectUmdaarDomain = () => (state) => state.get('umdaar').toJS()
 
-const makeSelectMastersOfUmdaarCharacter = () => createSelector(
-  selectMastersOfUmdaarCharacterDomain(),
-  (substate) => substate
+const makeSelectUmdaarDomain = () => createSelector(
+  selectUmdaarDomain(),
+  (umdaar) => umdaar
 )
 
-export default makeSelectMastersOfUmdaarCharacter
+const makeSelectBioformType = () => createSelector(
+  selectUmdaarDomain(),
+  (umdaar) => get(umdaar, 'character.bioform.type')
+)
+
+const makeSelectBioformAnimals = () => createSelector(
+  selectUmdaarDomain(),
+  (umdaar) => get(umdaar, 'character.bioform.animals')
+)
+
+const makeSelectBioformApproach = () => createSelector(
+  selectUmdaarDomain(),
+  (umdaar) => get(umdaar, 'character.bioform.approach')
+)
+
 export {
-  selectMastersOfUmdaarCharacterDomain
+  selectUmdaarDomain,
+  makeSelectUmdaarDomain,
+  makeSelectBioformType,
+  makeSelectBioformAnimals,
+  makeSelectBioformApproach
 }

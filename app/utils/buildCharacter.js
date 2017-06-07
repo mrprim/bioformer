@@ -14,20 +14,20 @@ function buildCharacter () {
   }
 
   const bioform = getFateChartValue(bioforms, dice.roll4dF())
+  const approaches = []
 
   character.bioform.type = bioform.value
   character.bioform.animals = []
-  character.bioform.approaches = []
 
   if (bioform.approach) {
-    character.bioform.approaches.push(bioform.approach)
+    approaches.push(bioform.approach)
   }
 
   if (bioform.animal) {
     animalChart = lodash.sample(animalCharts)
     const animal = getFateChartValue(animalChart, dice.roll4dF())
-    character.bioform.animals.push(animal.value + (animal.subvalue ? ' (' + animal.subvalue + ')' : ''))
-    character.bioform.approaches.push(animal.approach)
+    character.bioform.animals.push(lodash.sample(animal.value.split(',')) + (animal.subvalue ? ' [' + lodash.sample(animal.subvalue.split(',')).trim() + ']' : ''))
+    approaches.push(animal.approach)
   }
 
   if (bioform.animal && bioform.secondAnimal) {
@@ -38,10 +38,11 @@ function buildCharacter () {
     })
     secondAnimalChart = lodash.sample(filteredCharts)
     const animal = getFateChartValue(secondAnimalChart, dice.roll4dF())
-    character.bioform.animals.push(animal.value + (animal.subvalue ? ' (' + animal.subvalue + ')' : ''))
-    character.bioform.approaches.push(animal.approach)
+    character.bioform.animals.push(lodash.sample(animal.value.split(',')) + (animal.subvalue ? ' [' + lodash.sample(animal.subvalue.split(',')).trim() + ']' : ''))
+    approaches.push(animal.approach)
   }
 
+  character.bioform.approach = lodash.sample(approaches)
   return character
 }
 

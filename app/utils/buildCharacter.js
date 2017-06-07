@@ -7,6 +7,11 @@ const herpsAndDinos = require('../data/herpsAndDinos')
 const birdsAndMammals = require('../data/birdsAndMammals')
 const animalCharts = [bugsAndFish, herpsAndDinos, birdsAndMammals]
 
+function getAnimalString (animal) {
+  let animalOptions = animal.subvalue ? animal.subvalue.split(',') : animal.value.split(',')
+
+  return lodash.sample(animalOptions).trim()
+}
 function buildCharacter () {
   let animalChart, secondAnimalChart
   const character = {
@@ -26,7 +31,7 @@ function buildCharacter () {
   if (bioform.animal) {
     animalChart = lodash.sample(animalCharts)
     const animal = getFateChartValue(animalChart, dice.roll4dF())
-    character.bioform.animals.push(lodash.sample(animal.value.split(',')) + (animal.subvalue ? ' [' + lodash.sample(animal.subvalue.split(',')).trim() + ']' : ''))
+    character.bioform.animals.push(getAnimalString(animal))
     approaches.push(animal.approach)
   }
 
@@ -38,7 +43,7 @@ function buildCharacter () {
     })
     secondAnimalChart = lodash.sample(filteredCharts)
     const animal = getFateChartValue(secondAnimalChart, dice.roll4dF())
-    character.bioform.animals.push(lodash.sample(animal.value.split(',')) + (animal.subvalue ? ' [' + lodash.sample(animal.subvalue.split(',')).trim() + ']' : ''))
+    character.bioform.animals.push(getAnimalString(animal))
     approaches.push(animal.approach)
   }
 

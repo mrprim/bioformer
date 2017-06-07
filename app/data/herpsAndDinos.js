@@ -45,7 +45,7 @@ module.exports = [
   }, {
     pos: 'k',
     value: 'Frog',
-    subvalue: 'Bull, Poison Arrow',
+    subvalue: 'Bull Frog, Poison Arrow',
     approach: 'Sneaky'
   }, {
     pos: 'l',

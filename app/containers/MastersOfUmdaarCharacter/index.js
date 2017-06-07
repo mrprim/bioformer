@@ -35,12 +35,13 @@ export class MastersOfUmdaarCharacter extends React.Component { // eslint-disabl
 
   renderCharacterMessage () {
     const {bioformType, bioformAnimals, bioformApproach} = this.props
-    const animalString = bioformAnimals.length ? '(' + bioformAnimals.join(' | ').trim() + ')' : ''
+    const animalString = bioformAnimals.length ? bioformAnimals.join('/').trim() + '-' : ''
     return (<div>
       {' Umga the ' +
         bioformApproach + ' ' +
-        bioformType + ' ' +
-        animalString
+        animalString +
+        bioformType
+
       }
     </div>)
   }

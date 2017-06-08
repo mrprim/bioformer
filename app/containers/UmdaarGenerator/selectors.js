@@ -31,6 +31,11 @@ const makeSelectPrimaryApproach = () => createSelector(
   (umdaar) => get(umdaar, 'character.primaryApproach')
 )
 
+const makeSelectStunts = () => createSelector(
+  selectUmdaarDomain(),
+  (umdaar) => get(umdaar, 'character.stunts')
+)
+
 export default makeSelectUmdaarDomain
 export {
   selectUmdaarDomain,
@@ -38,5 +43,6 @@ export {
   makeSelectName,
   makeSelectType,
   makeSelectAnimals,
-  makeSelectPrimaryApproach
+  makeSelectPrimaryApproach,
+  makeSelectStunts
 }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import Button from '../../components/Button'
 import CharacterWrapper from './components/CharacterWrapper'
+import StuntBlock from './components/StuntBlock'
 import { createStructuredSelector } from 'reselect'
 import {setCharacter} from './actions'
 import characterGenerator from './utils/characterGenerator'
@@ -11,7 +12,8 @@ import {
   makeSelectName,
   makeSelectType,
   makeSelectAnimals,
-  makeSelectPrimaryApproach
+  makeSelectPrimaryApproach,
+  makeSelectStunts
 } from './selectors'
 
 export class UmdaarGenerator extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -28,7 +30,7 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
     this.generateCharacter()
   }
 
-  renderCharacterMessage () {
+  renderBioform () {
     const {name, type, animals, primaryApproach} = this.props
     const animalString = animals.length ? animals.join('/').trim() + '-' : ''
     return (<div>
@@ -40,6 +42,15 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
     </div>)
   }
 
+  renderStunts () {
+    const {stunts = []} = this.props
+
+    return stunts.reduce((rslt, stunt) => {
+      rslt.push(<div>{stunt.type}: {stunt.value} ({stunt.approach})</div>)
+      return rslt
+    }, [])
+  }
+
   render () {
     return (
       <CharacterWrapper>
@@ -48,8 +59,11 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
           title='Masters of Umdaar Character Generator'
         />
 
-        {this.renderCharacterMessage()}
-
+        {this.renderBioform()}
+        <StuntBlock>
+          <u>Stunts</u>
+          {this.renderStunts()}
+        </StuntBlock>
         <Button onClick={this.handleClick.bind(this)}>
           Click to Fire Up the Recombinator
         </Button>
@@ -60,13 +74,15 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
 }
 
 UmdaarGenerator.defaultProps = {
-  animals: []
+  animals: [],
+  stunts: []
 }
 
 UmdaarGenerator.propTypes = {
   name: PropTypes.string,
   type: PropTypes.string,
   animals: PropTypes.array,
+  stunts: PropTypes.array,
   primaryApproach: PropTypes.string
 }
 
@@ -74,7 +90,8 @@ const mapStateToProps = createStructuredSelector({
   name: makeSelectName(),
   type: makeSelectType(),
   animals: makeSelectAnimals(),
-  primaryApproach: makeSelectPrimaryApproach()
+  primaryApproach: makeSelectPrimaryApproach(),
+  stunts: makeSelectStunts()
 })
 
 function mapDispatchToProps (dispatch) {

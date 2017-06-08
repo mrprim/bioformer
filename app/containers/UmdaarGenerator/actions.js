@@ -1,9 +1,3 @@
-/*
- *
- * MastersOfUmdaarCharacter actions
- *
- */
-
 import {
   SET_CHARACTER
 } from './constants'

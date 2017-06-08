@@ -11,7 +11,7 @@ import {
 
 const initialState = fromJS({})
 
-function mastersOfUmdaarCharacterReducer (state = initialState, action) {
+function umdaarGeneratorReducer (state = initialState, action) {
   switch (action.type) {
     case SET_CHARACTER:
       return fromJS({...state, character: action.character})
@@ -20,4 +20,4 @@ function mastersOfUmdaarCharacterReducer (state = initialState, action) {
   }
 }
 
-export default mastersOfUmdaarCharacterReducer
+export default umdaarGeneratorReducer

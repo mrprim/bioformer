@@ -1,31 +1,26 @@
-/*
- *
- * MastersOfUmdaarCharacter
- *
- */
-
 import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import Button from '../../components/Button'
-import CharacterWrapper from './CharacterWrapper'
+import CharacterWrapper from './components/CharacterWrapper'
 import { createStructuredSelector } from 'reselect'
 import {setCharacter} from './actions'
-import buildCharacter from '../../utils/buildCharacter'
+import characterGenerator from './utils/characterGenerator'
 import {
-  makeSelectBioformType,
-  makeSelectBioformAnimals,
-  makeSelectBioformApproach
+  makeSelectName,
+  makeSelectType,
+  makeSelectAnimals,
+  makeSelectPrimaryApproach
 } from './selectors'
 
-export class MastersOfUmdaarCharacter extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class UmdaarGenerator extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount () {
     this.generateCharacter()
   }
 
   generateCharacter () {
-    const character = buildCharacter()
+    const character = characterGenerator()
     this.props.actions.setCharacter(character)
   }
 
@@ -34,13 +29,13 @@ export class MastersOfUmdaarCharacter extends React.Component { // eslint-disabl
   }
 
   renderCharacterMessage () {
-    const {bioformType, bioformAnimals, bioformApproach} = this.props
-    const animalString = bioformAnimals.length ? bioformAnimals.join('/').trim() + '-' : ''
+    const {name, type, animals, primaryApproach} = this.props
+    const animalString = animals.length ? animals.join('/').trim() + '-' : ''
     return (<div>
-      {' Umga the ' +
-        bioformApproach + ' ' +
+      { name + ' the ' +
+        primaryApproach + ' ' +
         animalString +
-        bioformType
+        type
 
       }
     </div>)
@@ -65,20 +60,22 @@ export class MastersOfUmdaarCharacter extends React.Component { // eslint-disabl
   }
 }
 
-MastersOfUmdaarCharacter.defaultProps = {
-  bioformAnimals: []
+UmdaarGenerator.defaultProps = {
+  animals: []
 }
 
-MastersOfUmdaarCharacter.propTypes = {
-  bioformType: PropTypes.string,
-  bioformAnimals: PropTypes.array,
-  bioformApproach: PropTypes.string
+UmdaarGenerator.propTypes = {
+  name: PropTypes.string,
+  type: PropTypes.string,
+  animals: PropTypes.array,
+  primaryApproach: PropTypes.string
 }
 
 const mapStateToProps = createStructuredSelector({
-  bioformType: makeSelectBioformType(),
-  bioformAnimals: makeSelectBioformAnimals(),
-  bioformApproach: makeSelectBioformApproach()
+  name: makeSelectName(),
+  type: makeSelectType(),
+  animals: makeSelectAnimals(),
+  primaryApproach: makeSelectPrimaryApproach()
 })
 
 function mapDispatchToProps (dispatch) {
@@ -87,4 +84,4 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MastersOfUmdaarCharacter)
+export default connect(mapStateToProps, mapDispatchToProps)(UmdaarGenerator)

@@ -1,7 +1,7 @@
-module.exports = [
+export default [
   {
     pos: 'a',
-    value: 'Centipede, Milipede',
+    value: 'Centipede, Millipede',
     approach: 'Sneaky'
   },
   {

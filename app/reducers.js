@@ -6,7 +6,7 @@
 import { combineReducers } from 'redux-immutable'
 import { fromJS } from 'immutable'
 import { LOCATION_CHANGE } from 'react-router-redux'
-import umdaarReducer from './containers/MastersOfUmdaarCharacter/reducer'
+import umdaarReducer from './containers/UmdaarGenerator/reducer'
 import languageProviderReducer from 'containers/LanguageProvider/reducer'
 
 /*

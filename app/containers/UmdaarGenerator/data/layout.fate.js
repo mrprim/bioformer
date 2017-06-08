@@ -1,4 +1,6 @@
-module.exports = [
+import { countFateDieResults } from '../../../utils/dice'
+
+const layout = [
   {
     pos: 'a',
     row: 0,
@@ -75,3 +77,26 @@ module.exports = [
     column: 0
   }
 ]
+
+function getPosFromFateRoll (roll = []) {
+  const { plus, minus } = countFateDieResults(roll)
+  return layout.reduce(function (pos, obj) {
+    if (obj.column === plus && obj.row === minus) {
+      pos = obj.pos
+    }
+    return pos
+  }, 'a')
+}
+
+function getFateChartValue (chart = {}, roll = []) {
+  const pos = getPosFromFateRoll(roll)
+  const val = chart.default.filter((value) => value.pos === pos)
+  return val.length && val[0]
+}
+
+export default layout
+export {
+  layout,
+  getFateChartValue,
+  getPosFromFateRoll
+}

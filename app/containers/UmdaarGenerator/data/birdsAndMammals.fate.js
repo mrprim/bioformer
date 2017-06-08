@@ -1,16 +1,16 @@
-module.exports = [
+export default [
   {
     pos: 'a',
     value: 'Bat',
     approach: 'Sneaky'
   }, {
     pos: 'b',
-    value: 'Terror Birds',
+    value: 'Terror Bird',
     approach: 'Flashy'
   }, {
     pos: 'c',
     value: 'Ursine',
-    subvalue: 'Bears, Polar Bears, Pandas',
+    subvalue: 'Bear, Polar Bear, Panda',
     approach: 'Forceful'
   }, {
     pos: 'd',
@@ -23,7 +23,7 @@ module.exports = [
   }, {
     pos: 'f',
     value: 'Rodents & More',
-    subvalue: 'Rat, MOuse, Mole, Rabbit',
+    subvalue: 'Rat, Mouse, Mole, Rabbit',
     approach: 'Clever'
   }, {
     pos: 'g',

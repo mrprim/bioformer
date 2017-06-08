@@ -10,51 +10,54 @@ const animalCharts = [bugsAndFish, herpsAndDinos, birdsAndMammals]
 const { roll4dF } = require('../../../utils/dice')
 const { getFateChartValue } = require('../data/layout.fate')
 
-function parseAnimalString (animal) {
-  let animalOptions = animal.subvalue ? animal.subvalue.split(',') : animal.value.split(',')
-
-  return lodash.sample(animalOptions).trim()
-}
-
 function getName () {
   const name = nameGenerator()
   return name.charAt(0).toUpperCase() + name.slice(1)
 }
 
+function formatAnimalString (animal) {
+  let animalOptions = animal.subvalue ? animal.subvalue.split(',') : animal.value.split(',')
+
+  return lodash.sample(animalOptions).trim()
+}
+
 function characterGenerator () {
-  let animalChart, secondAnimalChart
   const character = {}
+  const approaches = []
+  const animals = []
+  let firstAnimalChart
 
   const bioform = getFateChartValue(bioforms, roll4dF())
-  const approaches = []
-  character.name = getName()
-  character.type = bioform.value
-  character.animals = []
 
   if (bioform.approach) {
     approaches.push(bioform.approach)
   }
 
   if (bioform.animal) {
-    animalChart = lodash.sample(animalCharts)
-    const animal = getFateChartValue(animalChart, roll4dF())
-    character.animals.push(parseAnimalString(animal))
+    const chart = lodash.sample(animalCharts)
+    const animal = getFateChartValue(chart, roll4dF())
+    const animalString = formatAnimalString(animal)
+
+    animals.push(animalString)
     approaches.push(animal.approach)
+    firstAnimalChart = chart
   }
 
   if (bioform.animal && bioform.secondAnimal) {
-    const filteredCharts = animalCharts.filter(function (chart, i) {
-      if (animalChart !== chart) {
-        return true
-      }
-    })
-    secondAnimalChart = lodash.sample(filteredCharts)
-    const animal = getFateChartValue(secondAnimalChart, roll4dF())
-    character.animals.push(parseAnimalString(animal))
+    const filteredCharts = animalCharts.filter((chart, i) => firstAnimalChart !== chart)
+    const chart = lodash.sample(filteredCharts)
+    const animal = getFateChartValue(chart, roll4dF())
+    const animalString = formatAnimalString(animal)
+
+    animals.push(animalString)
     approaches.push(animal.approach)
   }
 
+  character.name = getName()
+  character.type = bioform.value
+  character.animals = animals
   character.primaryApproach = lodash.sample(approaches)
+
   return character
 }
 

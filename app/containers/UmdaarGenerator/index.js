@@ -36,7 +36,6 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
         primaryApproach + ' ' +
         animalString +
         type
-
       }
     </div>)
   }

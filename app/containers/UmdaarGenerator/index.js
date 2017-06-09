@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import Button from '../../components/Button'
 import CharacterWrapper from './components/CharacterWrapper'
-import StuntBlock from './components/StuntBlock'
+import ApproachesBlock from './components/ApproachesBlock'
+import StuntsBlock from './components/StuntsBlock'
 import { createStructuredSelector } from 'reselect'
 import {setCharacter} from './actions'
 import characterGenerator from './utils/characterGenerator'
@@ -12,6 +13,7 @@ import {
   makeSelectName,
   makeSelectType,
   makeSelectAnimals,
+  makeSelectApproaches,
   makeSelectPrimaryApproach,
   makeSelectStunts
 } from './selectors'
@@ -33,6 +35,7 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
   renderBioform () {
     const {name, type, animals, primaryApproach} = this.props
     const animalString = animals.length ? animals.join('/').trim() + '-' : ''
+
     return (<div>
       { name + ' the ' +
         primaryApproach + ' ' +
@@ -42,11 +45,19 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
     </div>)
   }
 
+  renderApproaches () {
+    const {approaches = []} = this.props
+    let i = 0
+    return approaches.map(app => {
+      return <div key={i++}>{app.approach}: {app.value}</div>
+    })
+  }
+
   renderStunts () {
     const {stunts = []} = this.props
-
+    let i = 0
     return stunts.reduce((rslt, stunt) => {
-      rslt.push(<div>{stunt.type}: {stunt.value} ({stunt.approach})</div>)
+      rslt.push(<div key={i++}>{stunt.type}: {stunt.value} ({stunt.approach})</div>)
       return rslt
     }, [])
   }
@@ -60,10 +71,17 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
         />
 
         {this.renderBioform()}
-        <StuntBlock>
+
+        <ApproachesBlock>
+          <u>Approaches</u>
+          {this.renderApproaches()}
+        </ApproachesBlock>
+
+        <StuntsBlock>
           <u>Stunts</u>
           {this.renderStunts()}
-        </StuntBlock>
+        </StuntsBlock>
+
         <Button onClick={this.handleClick.bind(this)}>
           Click to Fire Up the Recombinator
         </Button>
@@ -75,7 +93,8 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
 
 UmdaarGenerator.defaultProps = {
   animals: [],
-  stunts: []
+  stunts: [],
+  approaches: []
 }
 
 UmdaarGenerator.propTypes = {
@@ -83,7 +102,7 @@ UmdaarGenerator.propTypes = {
   type: PropTypes.string,
   animals: PropTypes.array,
   stunts: PropTypes.array,
-  primaryApproach: PropTypes.string
+  approaches: PropTypes.array
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -91,6 +110,7 @@ const mapStateToProps = createStructuredSelector({
   type: makeSelectType(),
   animals: makeSelectAnimals(),
   primaryApproach: makeSelectPrimaryApproach(),
+  approaches: makeSelectApproaches(),
   stunts: makeSelectStunts()
 })
 

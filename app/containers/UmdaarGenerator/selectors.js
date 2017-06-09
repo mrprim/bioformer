@@ -26,9 +26,14 @@ const makeSelectAnimals = () => createSelector(
   (umdaar) => get(umdaar, 'character.animals')
 )
 
+const makeSelectApproaches = () => createSelector(
+  selectUmdaarDomain(),
+  (umdaar) => get(umdaar, 'character.approaches')
+)
+
 const makeSelectPrimaryApproach = () => createSelector(
   selectUmdaarDomain(),
-  (umdaar) => get(umdaar, 'character.primaryApproach')
+  (umdaar) => get(umdaar, 'character.approaches[0].approach')
 )
 
 const makeSelectStunts = () => createSelector(
@@ -43,6 +48,7 @@ export {
   makeSelectName,
   makeSelectType,
   makeSelectAnimals,
+  makeSelectApproaches,
   makeSelectPrimaryApproach,
   makeSelectStunts
 }

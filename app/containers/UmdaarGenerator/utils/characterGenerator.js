@@ -1,20 +1,20 @@
-const { sample, remove } = require('lodash')
-const { nameGenerator } = require('./nameGenerator')
+import { sample } from 'lodash'
+import { nameGenerator } from './nameGenerator'
 
-const bioforms = require('../data/bioforms.fate')
+import bioforms from '../data/bioforms.fate'
 
-const bugsAndFish = require('../data/bugsAndFish.fate')
-const herpsAndDinos = require('../data/herpsAndDinos.fate')
-const birdsAndMammals = require('../data/birdsAndMammals.fate')
+import bugsAndFish from '../data/bugsAndFish.fate'
+import herpsAndDinos from '../data/herpsAndDinos.fate'
+import birdsAndMammals from '../data/birdsAndMammals.fate'
+import powers from '../data/powers.fate'
+import weapons from '../data/weapons.fate'
+import adaptations from '../data/adaptations.fate'
+import { getSynonym } from '../data/approaches.thesaurus'
+import { roll4dF } from '../../../utils/dice'
+import { getFateChartValue } from '../data/layout.fate'
+
 const animalCharts = [bugsAndFish, herpsAndDinos, birdsAndMammals]
-
-const powers = require('../data/powers.fate')
-const weapons = require('../data/weapons.fate')
-const adaptations = require('../data/adaptations.fate')
 const stuntCharts = [powers, weapons, adaptations]
-
-const { roll4dF } = require('../../../utils/dice')
-const { getFateChartValue } = require('../data/layout.fate')
 
 function getName () {
   const name = nameGenerator()
@@ -41,7 +41,6 @@ function getApproaches (setupApproaches) {
     values.shift()
   }
 
-  console.log('phase 2 approaches', approaches)
   while (approaches.length > 0) {
     let approach = sample(approaches)
     let value = values[0]
@@ -68,6 +67,10 @@ function getApproaches (setupApproaches) {
   return rslt
 }
 
+function getDescriptor (approaches) {
+  return getSynonym(approaches[0].approach)
+}
+
 function getStunt (previousStunt) {
   const stuntChart = sample(stuntCharts)
   let stunt = getFateChartValue(stuntChart, roll4dF())
@@ -90,6 +93,8 @@ function characterGenerator () {
   const character = {}
   const animals = []
   const stunts = []
+  const aspects = {}
+  let approaches = []
   let setupApproaches = []
   let firstAnimalChart
 
@@ -127,11 +132,15 @@ function characterGenerator () {
   stunts.push(stunt2)
   setupApproaches.push(sample(stunt2.approach.split('/')))
 
+  approaches = getApproaches(setupApproaches)
   character.name = getName()
   character.type = bioform.value
   character.animals = animals
   character.stunts = stunts
-  character.approaches = getApproaches(setupApproaches)
+  character.approaches = approaches
+  character.descriptor = getDescriptor(approaches)
+  character.aspects = aspects
+
   return character
 }
 

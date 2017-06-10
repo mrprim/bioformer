@@ -9,13 +9,16 @@ import StuntsBlock from './components/StuntsBlock'
 import { createStructuredSelector } from 'reselect'
 import {setCharacter} from './actions'
 import characterGenerator from './utils/characterGenerator'
+import { toTitleCase } from '../../utils/strings'
 import {
   makeSelectName,
   makeSelectType,
   makeSelectAnimals,
   makeSelectApproaches,
+  makeSelectDescriptor,
+  makeSelectStunts,
   makeSelectPrimaryApproach,
-  makeSelectStunts
+  makeSelectAspects
 } from './selectors'
 
 export class UmdaarGenerator extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -32,16 +35,12 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
     this.generateCharacter()
   }
 
-  renderBioform () {
-    const {name, type, animals, primaryApproach} = this.props
+  renderSummary () {
+    const {name, type, animals, descriptor} = this.props
     const animalString = animals.length ? animals.join('/').trim() + '-' : ''
-
+    const summary = name + ' the ' + descriptor + ' ' + animalString + type
     return (<div>
-      { name + ' the ' +
-        primaryApproach + ' ' +
-        animalString +
-        type
-      }
+      {toTitleCase(summary)}
     </div>)
   }
 
@@ -70,7 +69,7 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
           title='Masters of Umdaar Character Generator'
         />
 
-        {this.renderBioform()}
+        {this.renderSummary()}
 
         <ApproachesBlock>
           <u>Approaches</u>
@@ -111,7 +110,9 @@ const mapStateToProps = createStructuredSelector({
   animals: makeSelectAnimals(),
   primaryApproach: makeSelectPrimaryApproach(),
   approaches: makeSelectApproaches(),
-  stunts: makeSelectStunts()
+  stunts: makeSelectStunts(),
+  descriptor: makeSelectDescriptor(),
+  aspects: makeSelectAspects()
 })
 
 function mapDispatchToProps (dispatch) {

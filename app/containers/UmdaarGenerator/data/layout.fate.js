@@ -90,7 +90,7 @@ function getPosFromFateRoll (roll = []) {
 
 function getFateChartValue (chart = {}, roll = []) {
   const pos = getPosFromFateRoll(roll)
-  const val = chart.default.filter((value) => value.pos === pos)
+  const val = chart.filter((value) => value.pos === pos)
   return val.length && val[0]
 }
 

@@ -13,7 +13,7 @@ import { getSynonym } from '../data/approaches.thesaurus'
 import { getClass } from '../data/classes'
 import { roll4dF } from '../../../utils/dice'
 import { getFateChartValue } from '../data/layout.fate'
-
+import { toTitleCase } from '../../../utils/strings'
 const animalCharts = [bugsAndFish, herpsAndDinos, birdsAndMammals]
 const stuntCharts = [powers, weapons, adaptations]
 
@@ -94,6 +94,19 @@ function getStunt (previousStunt) {
   return stunt
 }
 
+function getAspects (character = {}) {
+  return {
+    mainConcept: getMainConcept(character)
+  }
+}
+
+function getMainConcept (character) {
+  const { type, animals, descriptor, characterClass } = character
+  const animalString = animals.length ? animals.join('/').trim() + '-' : ''
+
+  return toTitleCase(descriptor + ' ' + animalString + type + ' ' + characterClass)
+}
+
 function characterGenerator () {
   const character = {}
   const animals = []
@@ -144,8 +157,8 @@ function characterGenerator () {
   character.stunts = stunts
   character.approaches = approaches
   character.descriptor = getDescriptorFromApproaches(approaches)
-  character.class = getClassFromApproaches(approaches)
-  character.aspects = aspects
+  character.characterClass = getClassFromApproaches(approaches)
+  character.aspects = getAspects(character)
 
   return character
 }

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import Button from '../../components/Button'
 import CharacterWrapper from './components/CharacterWrapper'
+import LabelValueItem from './components/LabelValueItem,js'
 import { createStructuredSelector } from 'reselect'
 import {setCharacter} from './actions'
 import characterGenerator from './utils/characterGenerator'
@@ -30,14 +31,14 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
     this.props.actions.setCharacter(character)
   }
 
-  handleClick () {
+  handleGenerateCharacterClick () {
     this.generateCharacter()
   }
 
   renderSummary () {
-    const {name, type, animals, descriptor, characterClass} = this.props
-    const animalString = animals.length ? animals.join('/').trim() + '-' : ''
-    const summary = name + ' the ' + descriptor + ' ' + animalString + type + ' ' + characterClass
+    const {name, aspects} = this.props
+
+    const summary = name + ' the ' + aspects.mainConcept
     return (<div>
       {toTitleCase(summary)}
     </div>)
@@ -45,19 +46,27 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
 
   renderApproaches () {
     const {approaches = []} = this.props
-    let i = 0
-    return approaches.map(app => {
-      return <div key={i++}>{app.approach}: {app.value}</div>
+    return approaches.map((app, i) => {
+      return <LabelValueItem key={i}><label>{app.approach}</label> <span>+{app.value}</span></LabelValueItem>
     })
   }
 
   renderStunts () {
     const {stunts = []} = this.props
-    let i = 0
-    return stunts.reduce((rslt, stunt) => {
-      rslt.push(<div key={i++}>{stunt.type}: {stunt.value} ({stunt.approach})</div>)
-      return rslt
-    }, [])
+    return stunts.map((stunt, i) => {
+      return <LabelValueItem key={i}><label>{stunt.type}</label> <span>{stunt.value} ({stunt.approach})</span></LabelValueItem>
+    })
+  }
+
+  renderAspects () {
+    const { mainConcept, motivation, personal, shared } = this.props.aspects
+    const rslt = []
+    rslt.push(<LabelValueItem key='0'><label>Main Concept</label> <span><em>{mainConcept}</em></span></LabelValueItem>)
+    rslt.push(<LabelValueItem key='1'><label>Motivation</label> <span><em>{motivation}</em></span></LabelValueItem>)
+    rslt.push(<LabelValueItem key='2'><label>Personal</label> <span><em>{personal}</em></span></LabelValueItem>)
+    rslt.push(<LabelValueItem key='3'><label>Shared</label> <span><em>{shared}</em></span></LabelValueItem>)
+
+    return rslt
   }
 
   render () {
@@ -70,6 +79,11 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
         </div>
 
         <div className='approaches text-left'>
+          <u>Aspects</u>
+          {this.renderAspects()}
+        </div>
+
+        <div className='approaches text-left'>
           <u>Approaches</u>
           {this.renderApproaches()}
         </div>
@@ -79,7 +93,7 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
           {this.renderStunts()}
         </div>
 
-        <Button onClick={this.handleClick.bind(this)}>
+        <Button onClick={this.handleGenerateCharacterClick.bind(this)}>
           Click to Fire Up the Recombinator
         </Button>
 
@@ -92,7 +106,7 @@ UmdaarGenerator.defaultProps = {
   animals: [],
   stunts: [],
   approaches: [],
-  aspects: []
+  aspects: {}
 }
 
 UmdaarGenerator.propTypes = {
@@ -103,7 +117,7 @@ UmdaarGenerator.propTypes = {
   approaches: PropTypes.array,
   descriptor: PropTypes.string,
   characterClass: PropTypes.string,
-  aspects: PropTypes.array
+  aspects: PropTypes.object
 }
 
 const mapStateToProps = createStructuredSelector({

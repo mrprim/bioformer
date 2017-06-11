@@ -10,6 +10,7 @@ import powers from '../data/powers.fate'
 import weapons from '../data/weapons.fate'
 import adaptations from '../data/adaptations.fate'
 import { getSynonym } from '../data/approaches.thesaurus'
+import { getClass } from '../data/classes'
 import { roll4dF } from '../../../utils/dice'
 import { getFateChartValue } from '../data/layout.fate'
 
@@ -67,8 +68,12 @@ function getApproaches (setupApproaches) {
   return rslt
 }
 
-function getDescriptor (approaches) {
+function getDescriptorFromApproaches (approaches) {
   return getSynonym(approaches[0].approach)
+}
+
+function getClassFromApproaches (approaches) {
+  return getClass(approaches[0].approach)
 }
 
 function getStunt (previousStunt) {
@@ -138,7 +143,8 @@ function characterGenerator () {
   character.animals = animals
   character.stunts = stunts
   character.approaches = approaches
-  character.descriptor = getDescriptor(approaches)
+  character.descriptor = getDescriptorFromApproaches(approaches)
+  character.class = getClassFromApproaches(approaches)
   character.aspects = aspects
 
   return character

@@ -51,6 +51,10 @@ const makeSelectDescriptor = () => createSelector(
   (umdaar) => get(umdaar, 'character.descriptor')
 )
 
+const makeSelectClass = () => createSelector(
+  selectUmdaarDomain(),
+  (umdaar) => get(umdaar, 'character.class')
+)
 export default makeSelectUmdaarDomain
 export {
   selectUmdaarDomain,
@@ -62,5 +66,6 @@ export {
   makeSelectPrimaryApproach,
   makeSelectStunts,
   makeSelectAspects,
+  makeSelectClass,
   makeSelectDescriptor
 }

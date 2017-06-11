@@ -4,8 +4,6 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import Button from '../../components/Button'
 import CharacterWrapper from './components/CharacterWrapper'
-import ApproachesBlock from './components/ApproachesBlock'
-import StuntsBlock from './components/StuntsBlock'
 import { createStructuredSelector } from 'reselect'
 import {setCharacter} from './actions'
 import characterGenerator from './utils/characterGenerator'
@@ -18,7 +16,8 @@ import {
   makeSelectDescriptor,
   makeSelectStunts,
   makeSelectPrimaryApproach,
-  makeSelectAspects
+  makeSelectAspects,
+  makeSelectClass
 } from './selectors'
 
 export class UmdaarGenerator extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -36,9 +35,9 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
   }
 
   renderSummary () {
-    const {name, type, animals, descriptor} = this.props
+    const {name, type, animals, descriptor, characterClass} = this.props
     const animalString = animals.length ? animals.join('/').trim() + '-' : ''
-    const summary = name + ' the ' + descriptor + ' ' + animalString + type
+    const summary = name + ' the ' + descriptor + ' ' + animalString + type + ' ' + characterClass
     return (<div>
       {toTitleCase(summary)}
     </div>)
@@ -64,22 +63,21 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
   render () {
     return (
       <CharacterWrapper>
+        <Helmet title='Masters of Umdaar Character Generator' />
 
-        <Helmet
-          title='Masters of Umdaar Character Generator'
-        />
+        <div className='summary'>
+          {this.renderSummary()}
+        </div>
 
-        {this.renderSummary()}
-
-        <ApproachesBlock>
+        <div className='approaches text-left'>
           <u>Approaches</u>
           {this.renderApproaches()}
-        </ApproachesBlock>
+        </div>
 
-        <StuntsBlock>
+        <div className='stunts text-left'>
           <u>Stunts</u>
           {this.renderStunts()}
-        </StuntsBlock>
+        </div>
 
         <Button onClick={this.handleClick.bind(this)}>
           Click to Fire Up the Recombinator
@@ -93,7 +91,8 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
 UmdaarGenerator.defaultProps = {
   animals: [],
   stunts: [],
-  approaches: []
+  approaches: [],
+  aspects: []
 }
 
 UmdaarGenerator.propTypes = {
@@ -101,7 +100,10 @@ UmdaarGenerator.propTypes = {
   type: PropTypes.string,
   animals: PropTypes.array,
   stunts: PropTypes.array,
-  approaches: PropTypes.array
+  approaches: PropTypes.array,
+  descriptor: PropTypes.string,
+  characterClass: PropTypes.string,
+  aspects: PropTypes.array
 }
 
 const mapStateToProps = createStructuredSelector({
@@ -112,7 +114,8 @@ const mapStateToProps = createStructuredSelector({
   approaches: makeSelectApproaches(),
   stunts: makeSelectStunts(),
   descriptor: makeSelectDescriptor(),
-  aspects: makeSelectAspects()
+  aspects: makeSelectAspects(),
+  characterClass: makeSelectClass()
 })
 
 function mapDispatchToProps (dispatch) {

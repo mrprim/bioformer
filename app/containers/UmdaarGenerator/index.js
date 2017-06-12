@@ -2,9 +2,11 @@ import React, { PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
-import Button from '../../components/Button'
+import GiantGoogleButton from '../../components/GiantGoogleButton'
 import CharacterWrapper from './components/CharacterWrapper'
 import LabelValueItem from './components/LabelValueItem.js'
+import theme from './theme'
+import { ThemeProvider } from 'styled-components'
 import { createStructuredSelector } from 'reselect'
 import {setCharacter} from './actions'
 import characterGenerator from './utils/characterGenerator'
@@ -71,33 +73,37 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
 
   render () {
     return (
-      <CharacterWrapper>
-        <Helmet title='Masters of Umdaar Character Generator' />
+      <div>
+        <ThemeProvider theme={theme}>
+          <CharacterWrapper>
+            <Helmet title='Masters of Umdaar Character Generator' />
 
-        <div className='summary'>
-          {this.renderSummary()}
-        </div>
+            <div className='summary'>
+              {this.renderSummary()}
+            </div>
 
-        <div className='approaches text-left'>
-          <u>Aspects</u>
-          {this.renderAspects()}
-        </div>
+            <div className='aspects text-left'>
+              <h3>Aspects</h3>
+              {this.renderAspects()}
+            </div>
 
-        <div className='approaches text-left'>
-          <u>Approaches</u>
-          {this.renderApproaches()}
-        </div>
+            <div className='approaches text-left'>
+              <h3>Approaches</h3>
+              {this.renderApproaches()}
+            </div>
 
-        <div className='stunts text-left'>
-          <u>Stunts</u>
-          {this.renderStunts()}
-        </div>
+            <div className='stunts text-left'>
+              <h3>Stunts</h3>
+              {this.renderStunts()}
+            </div>
 
-        <Button onClick={this.handleGenerateCharacterClick.bind(this)}>
-          Click to Fire Up the Recombinator
-        </Button>
+            <GiantGoogleButton onClick={this.handleGenerateCharacterClick.bind(this)}>
+              &#9861;
+            </GiantGoogleButton>
 
-      </CharacterWrapper>
+          </CharacterWrapper>
+        </ThemeProvider>
+      </div>
     )
   }
 }

@@ -96,7 +96,7 @@ function getStunt (previousStunt) {
 
 function getAspects (character = {}) {
   return {
-    mainConcept: getMainConcept(character)
+    bioform: getMainConcept(character)
   }
 }
 

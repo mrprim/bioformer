@@ -17,9 +17,10 @@ const GiantGoogleButton = styled.button`
   border: 4px solid white;
   box-shadow: 0 0 0 6px  ${props => props.theme.highlightColor};
 
-  &:hover {
+  &:hover, &:focus {
     background-color: palevioletred;
     box-shadow: 0 0 0 6px  palevioletred;
+    outline: none;
   }
 
   &:active {
@@ -28,6 +29,10 @@ const GiantGoogleButton = styled.button`
     border: 4px solid palevioletred;
     box-shadow: none;
   }
+
+
+
+
 
 `
 

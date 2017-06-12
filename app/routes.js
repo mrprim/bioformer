@@ -19,15 +19,35 @@ export default function createRoutes(store) {
   return [
     {
       path: '/',
-      name: 'home',
+      name: 'umdaarGenerator',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/HomePage'),
+          import('containers/UmdaarGenerator/reducer'),
+          import('containers/UmdaarGenerator'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([component]) => {
+        importModules.then(([reducer, component]) => {
+          injectReducer('umdaarGenerator', reducer.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: 'umdaar',
+      name: 'umdaarGenerator',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/UmdaarGenerator/reducer'),
+          import('containers/UmdaarGenerator'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, component]) => {
+          injectReducer('umdaarGenerator', reducer.default);
           renderRoute(component);
         });
 

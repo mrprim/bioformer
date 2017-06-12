@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect'
 import {setCharacter} from './actions'
 import characterGenerator from './utils/characterGenerator'
 import { toTitleCase } from '../../utils/strings'
+import ladder from './data/ladder'
 import {
   makeSelectName,
   makeSelectType,
@@ -40,16 +41,16 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
   renderSummary () {
     const {name, aspects} = this.props
 
-    const summary = name + ' the ' + aspects.mainConcept
-    return (<div>
+    const summary = name + ' the ' + aspects.bioform
+    return (<h2>
       {toTitleCase(summary)}
-    </div>)
+    </h2>)
   }
 
   renderApproaches () {
     const {approaches = []} = this.props
     return approaches.map((app, i) => {
-      return <LabelValueItem key={i}><label>{app.approach}</label> <span>+{app.value}</span></LabelValueItem>
+      return <LabelValueItem key={i}><label>{app.approach}</label> <span> {toTitleCase(ladder[app.value])} (+{app.value})</span></LabelValueItem>
     })
   }
 
@@ -61,9 +62,9 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
   }
 
   renderAspects () {
-    const { mainConcept, motivation, personal, shared } = this.props.aspects
+    const { bioform, motivation, personal, shared } = this.props.aspects
     const rslt = []
-    rslt.push(<LabelValueItem key='0'><label>Main Concept</label> <span><em>{mainConcept}</em></span></LabelValueItem>)
+    rslt.push(<LabelValueItem key='0'><label>Bioform</label> <span><em>{bioform}</em></span></LabelValueItem>)
     rslt.push(<LabelValueItem key='1'><label>Motivation</label> <span><em>{motivation}</em></span></LabelValueItem>)
     rslt.push(<LabelValueItem key='2'><label>Personal</label> <span><em>{personal}</em></span></LabelValueItem>)
     rslt.push(<LabelValueItem key='3'><label>Shared</label> <span><em>{shared}</em></span></LabelValueItem>)

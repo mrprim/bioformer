@@ -7,13 +7,21 @@ const CharacterWrapper = styled.div`
   text-align: center;
   width: 520px;
 
-  &.example-enter, &.example-appear {
-    opacity: 0.01;
+  &.umdaar-enter, &.umdaar-appear {
+    h3 {
+      color: ${props => props.theme.highlightColor};
+      transform: scale(0,1);
+      text-overflow: hidden;
+    }
   }
 
-  &.example-enter.example-enter-active, &.example-appear.example-appear-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in;
+  &.umdaar-enter.umdaar-enter-active, &.umdaar-appear.umdaar-appear-active {
+    h3 {
+      transform: scale(1,1);
+      color: white;
+      transition: transform 500ms ease-in, color 800ms ease-in;
+      transform-origin: left;
+    }
   }
 
   .text-left {

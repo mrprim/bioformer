@@ -90,10 +90,10 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
           <Helmet title='Masters of Umdaar Character Generator' />
 
           <CSSTransitionGroup
-            transitionName='example'
+            transitionName='umdaar'
             transitionAppear
-            transitionAppearTimeout={500}
-            transitionEnterTimeout={500}
+            transitionAppearTimeout={800}
+            transitionEnterTimeout={800}
             transitionLeaveTimeout={300}>
 
             <CharacterWrapper>

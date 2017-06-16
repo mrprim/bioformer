@@ -39,7 +39,7 @@ function countFateDieResults (rollArray = []) {
   }, results)
 }
 
-export {
+module.exports = {
   roll,
   roll1dF,
   roll4dF,

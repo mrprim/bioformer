@@ -8,10 +8,9 @@ import LabelValueItem from './components/LabelValueItem.js'
 import theme from './theme'
 import { ThemeProvider } from 'styled-components'
 import { createStructuredSelector } from 'reselect'
-import {setCharacter} from './actions'
-import characterGenerator from './utils/characterGenerator'
+import { fetchRandomCharacter } from './actions'
 import { toTitleCase } from '../../utils/strings'
-import ladder from './data/ladder'
+import ladder from '../../../api/umdaar/data/ladder'
 import {
   makeSelectName,
   makeSelectType,
@@ -21,7 +20,8 @@ import {
   makeSelectStunts,
   makeSelectPrimaryApproach,
   makeSelectAspects,
-  makeSelectClass
+  makeSelectClass,
+  makeSelectCharacterExists
 } from './selectors'
 
 export class UmdaarGenerator extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -30,8 +30,7 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
   }
 
   generateCharacter () {
-    const character = characterGenerator()
-    this.props.actions.setCharacter(character)
+    this.props.actions.fetchRandomCharacter()
   }
 
   handleGenerateCharacterClick () {
@@ -72,7 +71,17 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
     return rslt
   }
 
+  renderEmpty () {
+    return null
+  }
+
   render () {
+    const { characterExists } = this.props
+
+    if (!characterExists) {
+      return this.renderEmpty()
+    }
+
     return (
       <div>
         <ThemeProvider theme={theme}>
@@ -136,12 +145,13 @@ const mapStateToProps = createStructuredSelector({
   stunts: makeSelectStunts(),
   descriptor: makeSelectDescriptor(),
   aspects: makeSelectAspects(),
-  characterClass: makeSelectClass()
+  characterClass: makeSelectClass(),
+  characterExists: makeSelectCharacterExists()
 })
 
 function mapDispatchToProps (dispatch) {
   return {
-    actions: bindActionCreators({setCharacter}, dispatch)
+    actions: bindActionCreators({fetchRandomCharacter}, dispatch)
   }
 }
 

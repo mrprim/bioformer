@@ -1,19 +1,19 @@
-import { sample } from 'lodash'
-import { nameGenerator } from './nameGenerator'
+const sample = require('lodash/sample')
+const nameGenerator = require('./nameGenerator').nameGenerator
 
-import bioforms from '../data/bioforms.fate'
+const bioforms = require('../data/bioforms.fate')
 
-import bugsAndFish from '../data/bugsAndFish.fate'
-import herpsAndDinos from '../data/herpsAndDinos.fate'
-import birdsAndMammals from '../data/birdsAndMammals.fate'
-import powers from '../data/powers.fate'
-import weapons from '../data/weapons.fate'
-import adaptations from '../data/adaptations.fate'
-import { getSynonym } from '../data/approaches.thesaurus'
-import { getClass } from '../data/classes'
-import { roll4dF } from '../../../utils/dice'
-import { getFateChartValue } from '../data/layout.fate'
-import { toTitleCase } from '../../../utils/strings'
+const bugsAndFish = require('../data/bugsAndFish.fate')
+const herpsAndDinos = require('../data/herpsAndDinos.fate')
+const birdsAndMammals = require('../data/birdsAndMammals.fate')
+const powers = require('../data/powers.fate')
+const weapons = require('../data/weapons.fate')
+const adaptations = require('../data/adaptations.fate')
+const getSynonym = require('../data/approaches.thesaurus').getSynonym
+const getClass = require('../data/classes').getClass
+const roll4dF = require('../../utils/dice').roll4dF
+const getFateChartValue = require('../data/layout.fate').getFateChartValue
+const toTitleCase = require('../../utils/strings').toTitleCase
 const animalCharts = [bugsAndFish, herpsAndDinos, birdsAndMammals]
 const stuntCharts = [powers, weapons, adaptations]
 
@@ -163,4 +163,4 @@ function characterGenerator () {
   return character
 }
 
-export default characterGenerator
+module.exports = characterGenerator

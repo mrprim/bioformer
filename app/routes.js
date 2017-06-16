@@ -23,13 +23,15 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           import('containers/UmdaarGenerator/reducer'),
+          import('containers/UmdaarGenerator/sagas'),
           import('containers/UmdaarGenerator'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, component]) => {
+        importModules.then(([reducer, sagas, component]) => {
           injectReducer('umdaarGenerator', reducer.default);
+          injectSagas(sagas.default);
           renderRoute(component);
         });
 
@@ -41,13 +43,15 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           import('containers/UmdaarGenerator/reducer'),
+          import('containers/UmdaarGenerator/sagas'),
           import('containers/UmdaarGenerator'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, component]) => {
+        importModules.then(([reducer, sagas, component]) => {
           injectReducer('umdaarGenerator', reducer.default);
+          injectSagas(sagas.default);
           renderRoute(component);
         });
 

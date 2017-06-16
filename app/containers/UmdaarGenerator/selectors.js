@@ -11,6 +11,11 @@ const makeSelectUmdaarDomain = () => createSelector(
   (umdaar) => umdaar
 )
 
+const makeSelectCharacterExists = () => createSelector(
+  selectUmdaarDomain(),
+  (umdaar) => !!get(umdaar, 'character.type')
+)
+
 const makeSelectName = () => createSelector(
   selectUmdaarDomain(),
   (umdaar) => get(umdaar, 'character.name')
@@ -67,5 +72,6 @@ export {
   makeSelectStunts,
   makeSelectAspects,
   makeSelectClass,
-  makeSelectDescriptor
+  makeSelectDescriptor,
+  makeSelectCharacterExists
 }

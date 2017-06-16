@@ -1,4 +1,4 @@
-import { countFateDieResults } from '../../../utils/dice'
+const countFateDieResults = require('../../utils/dice').countFateDieResults
 
 const layout = [
   {
@@ -94,8 +94,7 @@ function getFateChartValue (chart = {}, roll = []) {
   return val.length && val[0]
 }
 
-export default layout
-export {
+module.exports = {
   layout,
   getFateChartValue,
   getPosFromFateRoll

@@ -1,4 +1,4 @@
-import { sample } from 'lodash'
+const sample = require('lodash/sample')
 const careful = ['accurate', 'attentive', 'careful', 'choosy', 'circumspect', 'concerned', 'conscientious', 'deliberate', 'discreet', 'judicious', 'leery', 'meticulous', 'mindful', 'precise', 'prudent', 'rigorous', 'scrupulous', 'sober', 'thorough', 'thoughtful', 'vigilant', 'wary', 'alert', 'apprehensive', 'assiduous', 'chary', 'conservative', 'cool', 'exacting', 'fastidious', 'finicky', 'fussy', 'guarded', 'heedful', 'observant', 'particular', 'prim', 'protective', 'provident', 'punctilious', 'regardful', 'religious', 'self-disciplined', 'shy', 'solicitous', 'solid']
 const clever = ['able', 'adept', 'adroit', 'alert', 'apt', 'astute', 'brainy', 'brilliant', 'cagey', 'canny', 'capable', 'clever', 'competent', 'crackerjack', 'cunning', 'deep', 'discerning', 'egghead', 'expert', 'foxy', 'gifted', 'good', 'handy', 'intelligent', 'inventive', 'keen', 'knowing', 'knowledgeable', 'many-sided', 'nimble', 'qualified', 'quick-witted', 'rational', 'resourceful', 'sagacious', 'savvy', 'sensible', 'sharp', 'shrewd', 'skilled', 'skillful', 'slick', 'sly', 'smart', 'sprightly', 'talented', 'versatile', 'wise', 'witty']
 const flashy = ['flashy', 'garish', 'gaudy', 'glittering', 'glittery', 'jazzy', 'ostentatious', 'showy', 'snazzy', 'tacky', 'blatant', 'brazen', 'catchpenny', 'flaunting', 'florid', 'glaring', 'glitzy', 'loud', 'meretricious', 'ornate', 'sparkling', 'tasteless', 'tawdry', 'vulgar']
@@ -19,9 +19,7 @@ function getSynonym (approach) {
   return sample(synonyms)
 }
 
-export default approaches
-
-export {
+module.exports = {
   careful,
   clever,
   flashy,

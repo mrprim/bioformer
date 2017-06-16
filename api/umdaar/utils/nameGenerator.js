@@ -83,6 +83,6 @@ function nameGenerator () {
   return names
 }
 
-export {
+module.exports = {
   nameGenerator
 }

@@ -1,4 +1,4 @@
-export default [
+module.exports = [
   {
     pos: 'a',
     value: 'Teleportation',

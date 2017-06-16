@@ -3,6 +3,7 @@ import { FETCH_RANDOM_CHARACTER, SET_CHARACTER } from './constants'
 import request from '../../utils/request'
 
 export function * fetchRandomCharacter (action) {
+  yield put({type: SET_CHARACTER})
   const character = yield call(request, '/api/umdaar/character')
   yield put({type: SET_CHARACTER, character})
 }

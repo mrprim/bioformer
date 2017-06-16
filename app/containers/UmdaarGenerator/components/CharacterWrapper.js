@@ -7,6 +7,15 @@ const CharacterWrapper = styled.div`
   text-align: center;
   width: 520px;
 
+  &.example-enter, &.example-appear {
+    opacity: 0.01;
+  }
+
+  &.example-enter.example-enter-active, &.example-appear.example-appear-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+  }
+
   .text-left {
     text-align: left;
   }
@@ -15,41 +24,6 @@ const CharacterWrapper = styled.div`
     color: ${props => props.theme.highlightColor};
     font-size: 1.2em;
     text-transform: uppercase;
-  }
-
-  h3 {
-    color: ${props => props.theme.lightTextColor};
-    background-color: ${props => props.theme.highlightColor};
-    height: 46px;
-    line-height: 60px;
-    vertical-align: bottom;
-    font-size: 1em;
-    padding:0;
-    margin-top: 17px;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-
-    &:before {
-      content: '';
-      display: block;
-      float:left;
-      border-left:7px solid white;
-      border-top: 7px solid white;
-      border-bottom: 7px solid transparent;
-      border-right: 7px solid transparent;
-    }
-
-    &:after {
-      content: '';
-      margin-top: 32px;
-      float: right;
-      display: block;
-      border-right:7px solid white;
-      border-bottom: 7px solid white;
-      border-top: 7px solid transparent;
-      border-left: 7px solid transparent;
-    }
-
   }
 `
 

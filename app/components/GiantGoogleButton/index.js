@@ -29,11 +29,12 @@ const GiantGoogleButton = styled.button`
     border: 4px solid palevioletred;
     box-shadow: none;
   }
-
-
-
-
-
 `
+
+GiantGoogleButton.defaultProps = {
+  theme: {
+    highlightColor: 'palevioletred'
+  }
+}
 
 export default GiantGoogleButton

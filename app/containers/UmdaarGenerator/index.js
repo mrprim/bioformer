@@ -5,8 +5,10 @@ import Helmet from 'react-helmet'
 import GiantGoogleButton from '../../components/GiantGoogleButton'
 import CharacterWrapper from './components/CharacterWrapper'
 import LabelValueItem from './components/LabelValueItem.js'
+import Heading from './components/Heading'
 import theme from './theme'
 import { ThemeProvider } from 'styled-components'
+import { CSSTransitionGroup } from 'react-transition-group'
 import { createStructuredSelector } from 'reselect'
 import { fetchRandomCharacter } from './actions'
 import { toTitleCase } from '../../utils/strings'
@@ -83,37 +85,47 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
     }
 
     return (
-      <div>
-        <ThemeProvider theme={theme}>
-          <CharacterWrapper>
-            <Helmet title='Masters of Umdaar Character Generator' />
+      <ThemeProvider theme={theme}>
+        <div>
+          <Helmet title='Masters of Umdaar Character Generator' />
 
-            <div className='summary'>
-              {this.renderSummary()}
-            </div>
+          <CSSTransitionGroup
+            transitionName='example'
+            transitionAppear
+            transitionAppearTimeout={500}
+            transitionEnterTimeout={500}
+            transitionLeaveTimeout={300}>
 
-            <div className='aspects text-left'>
-              <h3>Aspects</h3>
-              {this.renderAspects()}
-            </div>
+            <CharacterWrapper>
 
-            <div className='approaches text-left'>
-              <h3>Approaches</h3>
-              {this.renderApproaches()}
-            </div>
+              <div className='summary'>
+                {this.renderSummary()}
+              </div>
 
-            <div className='stunts text-left'>
-              <h3>Stunts</h3>
-              {this.renderStunts()}
-            </div>
+              <div className='aspects text-left'>
+                <Heading>Aspects</Heading>
+                {this.renderAspects()}
+              </div>
 
-            <GiantGoogleButton onClick={this.handleGenerateCharacterClick.bind(this)}>
-              &#9861;
-            </GiantGoogleButton>
+              <div className='approaches text-left'>
+                <Heading>Approaches</Heading>
+                {this.renderApproaches()}
+              </div>
 
-          </CharacterWrapper>
-        </ThemeProvider>
-      </div>
+              <div className='stunts text-left'>
+                <Heading>Stunts</Heading>
+                {this.renderStunts()}
+              </div>
+
+            </CharacterWrapper>
+          </CSSTransitionGroup>
+
+          <GiantGoogleButton onClick={this.handleGenerateCharacterClick.bind(this)}>
+            &#9861;
+          </GiantGoogleButton>
+        </div>
+
+      </ThemeProvider>
     )
   }
 }

@@ -7,10 +7,8 @@ const LabelValueItem = styled.div`
     margin-right: 10px;
     text-align: right;
     font-weight: bolder;
-    color: ${props => props.theme.highlightColor};
-  }
-  > span {
-
+    color: ${props => props.theme.main};
   }
 `
+
 export default LabelValueItem

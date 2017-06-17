@@ -11,30 +11,24 @@ const GiantGoogleButton = styled.button`
   border-radius:160px;
   text-align: center;
   text-overflow: hidden;
-  background-color: ${props => props.theme.highlightColor};
-  color: ${props => props.theme.lightTextColor};
+  background-color: ${props => props.theme.main};
+  color: ${props => props.theme.white};
   cursor: pointer;
-  border: 4px solid white;
-  box-shadow: 0 0 0 6px  ${props => props.theme.highlightColor};
+  border: 4px solid ${props => props.theme.white};
+  box-shadow: 0 0 0 6px  ${props => props.theme.main};
 
   &:hover, &:focus {
-    background-color: palevioletred;
-    box-shadow: 0 0 0 6px  palevioletred;
+    background-color: ${props => props.theme.highlight};
+    box-shadow: 0 0 0 6px  ${props => props.theme.highlight};
     outline: none;
   }
 
   &:active {
-    background-color: ${props => props.theme.highlightColor};
-    color: palevioletred;
-    border: 4px solid palevioletred;
+    background-color: ${props => props.theme.main};
+    color: ${props => props.theme.highlight};
+    border: 4px solid ${props => props.theme.highlight};
     box-shadow: none;
   }
 `
-
-GiantGoogleButton.defaultProps = {
-  theme: {
-    highlightColor: 'palevioletred'
-  }
-}
 
 export default GiantGoogleButton

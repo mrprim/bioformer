@@ -77,12 +77,33 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
     return null
   }
 
+  renderCharacter () {
+    return (<div>
+
+      <div className='summary'>
+        {this.renderSummary()}
+      </div>
+
+      <div className='aspects text-left'>
+        <Heading>Aspects</Heading>
+        {this.renderAspects()}
+      </div>
+
+      <div className='approaches text-left'>
+        <Heading>Approaches</Heading>
+        {this.renderApproaches()}
+      </div>
+
+      <div className='stunts text-left'>
+        <Heading>Stunts</Heading>
+        {this.renderStunts()}
+      </div>
+
+    </div>)
+  }
+
   render () {
     const { characterExists } = this.props
-
-    if (!characterExists) {
-      return this.renderEmpty()
-    }
 
     return (
       <ThemeProvider theme={theme}>
@@ -92,32 +113,12 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
           <CSSTransitionGroup
             transitionName='umdaar'
             transitionAppear
-            transitionAppearTimeout={800}
-            transitionEnterTimeout={800}
-            transitionLeaveTimeout={300}>
+            transitionAppearTimeout={800}>
 
             <CharacterWrapper>
-
-              <div className='summary'>
-                {this.renderSummary()}
-              </div>
-
-              <div className='aspects text-left'>
-                <Heading>Aspects</Heading>
-                {this.renderAspects()}
-              </div>
-
-              <div className='approaches text-left'>
-                <Heading>Approaches</Heading>
-                {this.renderApproaches()}
-              </div>
-
-              <div className='stunts text-left'>
-                <Heading>Stunts</Heading>
-                {this.renderStunts()}
-              </div>
-
+              {characterExists ? this.renderCharacter() : this.renderEmpty()}
             </CharacterWrapper>
+
           </CSSTransitionGroup>
 
           <GiantGoogleButton onClick={this.handleGenerateCharacterClick.bind(this)}>

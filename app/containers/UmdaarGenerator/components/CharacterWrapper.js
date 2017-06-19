@@ -7,6 +7,7 @@ const CharacterWrapper = styled.div`
   margin: 0 auto;
   text-align: center;
   width: 520px;
+  font-family: 'Proxima Nova', sans serif;
 
   .text-left {
     text-align: left;
@@ -15,7 +16,6 @@ const CharacterWrapper = styled.div`
   h2 {
     color: ${props => props.theme.main};
     font-size: 1.2em;
-    text-transform: uppercase;
   }
 
   &.umdaar-enter, &.umdaar-appear {

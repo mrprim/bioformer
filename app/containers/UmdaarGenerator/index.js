@@ -113,7 +113,9 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
           <CSSTransitionGroup
             transitionName='umdaar'
             transitionAppear
-            transitionAppearTimeout={800}>
+            transitionAppearTimeout={800}
+            transitionEnterTimeout={800}
+            transitionLeaveTimeout={800}>
 
             <CharacterWrapper>
               {characterExists ? this.renderCharacter() : this.renderEmpty()}

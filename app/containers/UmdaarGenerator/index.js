@@ -26,7 +26,6 @@ import {
   makeSelectClass,
   makeSelectCharacterExists
 } from './selectors'
-import logo from '../../../assets/logo.png'
 
 export class UmdaarGenerator extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount () {

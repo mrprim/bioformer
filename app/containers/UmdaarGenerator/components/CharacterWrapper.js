@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+// background: url('/assets/alien-mountain.png')
 const CharacterWrapper = styled.div`
   background: ${props => props.theme.white};
   color: ${props => props.theme.black};
@@ -16,6 +17,8 @@ const CharacterWrapper = styled.div`
   h2 {
     color: ${props => props.theme.main};
     font-size: 1.2em;
+    font-variant: small-caps;
+
   }
 
   &.umdaar-enter, &.umdaar-appear {

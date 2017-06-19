@@ -13,7 +13,6 @@ const getSynonym = require('../data/approaches.thesaurus').getSynonym
 const getClass = require('../data/classes').getClass
 const roll4dF = require('../../utils/dice').roll4dF
 const getFateChartValue = require('../data/layout.fate').getFateChartValue
-const toTitleCase = require('../../utils/strings').toTitleCase
 const animalCharts = [bugsAndFish, herpsAndDinos, birdsAndMammals]
 const stuntCharts = [powers, weapons, adaptations]
 
@@ -104,7 +103,7 @@ function getMainConcept (character) {
   const { type, animals, descriptor, characterClass } = character
   const animalString = animals.length ? animals.join('/').trim() + '-' : ''
 
-  return toTitleCase(descriptor + ' ' + animalString + type + ' ' + characterClass)
+  return (descriptor + ' ' + animalString + type + ' ' + characterClass).toLowerCase()
 }
 
 function characterGenerator () {

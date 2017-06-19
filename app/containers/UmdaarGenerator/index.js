@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import GiantGoogleButton from '../../components/GiantGoogleButton'
 import CharacterWrapper from './components/CharacterWrapper'
+import PageWrapper from './components/PageWrapper'
 import LabelValueItem from './components/LabelValueItem.js'
 import Heading from './components/Heading'
 import theme from './theme'
@@ -25,6 +26,7 @@ import {
   makeSelectClass,
   makeSelectCharacterExists
 } from './selectors'
+import logo from '../../../assets/logo.png'
 
 export class UmdaarGenerator extends React.Component { // eslint-disable-line react/prefer-stateless-function
   componentDidMount () {
@@ -65,10 +67,10 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
   renderAspects () {
     const { bioform, motivation, personal, shared } = this.props.aspects
     const rslt = []
-    rslt.push(<LabelValueItem key='0'><label>Bioform</label> <span><em>{bioform}</em></span></LabelValueItem>)
-    rslt.push(<LabelValueItem key='1'><label>Motivation</label> <span><em>{motivation}</em></span></LabelValueItem>)
-    rslt.push(<LabelValueItem key='2'><label>Personal</label> <span><em>{personal}</em></span></LabelValueItem>)
-    rslt.push(<LabelValueItem key='3'><label>Shared</label> <span><em>{shared}</em></span></LabelValueItem>)
+    rslt.push(<LabelValueItem key='0'><label>Bioform</label> <span><em>{toTitleCase(bioform)}</em></span></LabelValueItem>)
+    rslt.push(<LabelValueItem key='1'><label>Motivation</label> <span><em>{toTitleCase(motivation)}</em></span></LabelValueItem>)
+    rslt.push(<LabelValueItem key='2'><label>Personal</label> <span><em>{toTitleCase(personal)}</em></span></LabelValueItem>)
+    rslt.push(<LabelValueItem key='3'><label>Shared</label> <span><em>{toTitleCase(shared)}</em></span></LabelValueItem>)
 
     return rslt
   }
@@ -107,9 +109,8 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
 
     return (
       <ThemeProvider theme={theme}>
-        <div>
+        <PageWrapper>
           <Helmet title='Masters of Umdaar Character Generator' />
-
           <CSSTransitionGroup
             transitionName='umdaar'
             transitionAppear
@@ -126,7 +127,7 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
           <GiantGoogleButton onClick={this.handleGenerateCharacterClick.bind(this)}>
             &#9861;
           </GiantGoogleButton>
-        </div>
+        </PageWrapper>
 
       </ThemeProvider>
     )

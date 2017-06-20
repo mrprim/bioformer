@@ -8,11 +8,11 @@ const LabelValueItem = styled.div`
     text-align: right;
     font-weight: bolder;
     color: ${props => props.theme.main};
-    font-family: 'Tangerine', sans serif;
+    font-family: 'Montserrat', sans serif;
   }
 
   > span {
-    font-family: 'Tangerine', serif;
+    font-family: 'Montserrat', serif;
   }
 `
 

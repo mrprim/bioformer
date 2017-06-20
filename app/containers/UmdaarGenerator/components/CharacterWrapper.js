@@ -9,7 +9,7 @@ const CharacterWrapper = styled.div`
   text-align: center;
   width: 520px;
   min-height: 100%;
-  font-family: 'Tangerine', sans serif;
+  font-family: 'Montserrat', sans serif;
 
   .text-left {
     text-align: left;

@@ -4,10 +4,11 @@ import styled from 'styled-components'
 const CharacterWrapper = styled.div`
   background: ${props => props.theme.white};
   color: ${props => props.theme.black};
-  padding: 60px 10px;
+  padding: 40px 10px;
   margin: 0 auto;
   text-align: center;
   width: 520px;
+  min-height: 100%;
   font-family: 'Proxima Nova', sans serif;
 
   .text-left {

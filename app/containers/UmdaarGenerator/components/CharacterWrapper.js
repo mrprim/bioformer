@@ -5,9 +5,8 @@ const CharacterWrapper = styled.div`
   background: ${props => props.theme.white};
   color: ${props => props.theme.black};
   padding: 40px 10px;
-  margin: 0 auto;
+  margin: 0px auto;
   text-align: center;
-  width: 520px;
   min-height: 100%;
   font-family: 'Montserrat', sans serif;
 

@@ -13,6 +13,7 @@ import { CSSTransitionGroup } from 'react-transition-group'
 import { createStructuredSelector } from 'reselect'
 import { fetchRandomCharacter } from './actions'
 import { toTitleCase } from '../../utils/strings'
+import { Grid, Row, Col } from 'react-bootstrap'
 import ladder from '../../../api/umdaar/data/ladder'
 import {
   makeSelectName,
@@ -117,9 +118,15 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
             transitionEnterTimeout={800}
             transitionLeaveTimeout={800}>
 
-            <CharacterWrapper>
-              {characterExists ? this.renderCharacter() : this.renderEmpty()}
-            </CharacterWrapper>
+            <Grid>
+              <Row>
+                <Col xs={12} mdOffset={3} md={6}>
+                  <CharacterWrapper>
+                    {characterExists ? this.renderCharacter() : this.renderEmpty()}
+                  </CharacterWrapper>
+                </Col>
+              </Row>
+            </Grid>
 
           </CSSTransitionGroup>
 

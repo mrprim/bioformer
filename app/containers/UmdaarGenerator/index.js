@@ -4,17 +4,14 @@ import { connect } from 'react-redux'
 import Helmet from 'react-helmet'
 import GiantGoogleButton from '../../components/GiantGoogleButton'
 import CharacterWrapper from './components/CharacterWrapper'
-import PageWrapper from './components/PageWrapper'
-import LabelValueItem from './components/LabelValueItem.js'
-import Heading from './components/Heading'
+import Character from './components/Character'
 import theme from './theme'
 import { ThemeProvider } from 'styled-components'
 import { CSSTransitionGroup } from 'react-transition-group'
 import { createStructuredSelector } from 'reselect'
 import { fetchRandomCharacter } from './actions'
-import { toTitleCase } from '../../utils/strings'
 import { Grid, Row, Col } from 'react-bootstrap'
-import ladder from '../../../api/umdaar/data/ladder'
+
 import {
   makeSelectName,
   makeSelectType,
@@ -41,67 +38,12 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
     this.generateCharacter()
   }
 
-  renderSummary () {
-    const {name, aspects} = this.props
-
-    const summary = name + ' the ' + aspects.bioform
-    return (<h2>
-      {toTitleCase(summary)}
-    </h2>)
-  }
-
-  renderApproaches () {
-    const {approaches = []} = this.props
-    return approaches.map((app, i) => {
-      return <LabelValueItem key={i}><label>{app.approach}</label> <span> {toTitleCase(ladder[app.value])} (+{app.value})</span></LabelValueItem>
-    })
-  }
-
-  renderStunts () {
-    const {stunts = []} = this.props
-    return stunts.map((stunt, i) => {
-      return <LabelValueItem key={i}><label>{stunt.type}</label> <span>{stunt.value} ({stunt.approach})</span></LabelValueItem>
-    })
-  }
-
-  renderAspects () {
-    const { bioform, motivation, personal, shared } = this.props.aspects
-    const rslt = []
-    rslt.push(<LabelValueItem key='0'><label>Bioform</label> <span><em>{toTitleCase(bioform)}</em></span></LabelValueItem>)
-    rslt.push(<LabelValueItem key='1'><label>Motivation</label> <span><em>{toTitleCase(motivation)}</em></span></LabelValueItem>)
-    rslt.push(<LabelValueItem key='2'><label>Personal</label> <span><em>{toTitleCase(personal)}</em></span></LabelValueItem>)
-    rslt.push(<LabelValueItem key='3'><label>Shared</label> <span><em>{toTitleCase(shared)}</em></span></LabelValueItem>)
-
-    return rslt
+  renderCharacter () {
+    return <Character {...this.props} />
   }
 
   renderEmpty () {
     return null
-  }
-
-  renderCharacter () {
-    return (<div>
-
-      <div className='summary'>
-        {this.renderSummary()}
-      </div>
-
-      <div className='aspects text-left'>
-        <Heading>Aspects</Heading>
-        {this.renderAspects()}
-      </div>
-
-      <div className='approaches text-left'>
-        <Heading>Approaches</Heading>
-        {this.renderApproaches()}
-      </div>
-
-      <div className='stunts text-left'>
-        <Heading>Stunts</Heading>
-        {this.renderStunts()}
-      </div>
-
-    </div>)
   }
 
   render () {
@@ -109,7 +51,7 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
 
     return (
       <ThemeProvider theme={theme}>
-        <PageWrapper>
+        <div>
           <Helmet title='Masters of Umdaar Character Generator' />
           <CSSTransitionGroup
             transitionName='umdaar'
@@ -133,7 +75,7 @@ export class UmdaarGenerator extends React.Component { // eslint-disable-line re
           <GiantGoogleButton onClick={this.handleGenerateCharacterClick.bind(this)}>
             &#9861;
           </GiantGoogleButton>
-        </PageWrapper>
+        </div>
 
       </ThemeProvider>
     )
